@@ -10,7 +10,9 @@ import os
 settings = get_settings()
 
 # Ensure data directory exists
-os.makedirs("data", exist_ok=True)
+# 支持 Render 的持久化磁盘路径
+data_dir = os.getenv("DATA_DIR", "data")
+os.makedirs(data_dir, exist_ok=True)
 
 # Create SQLite engine
 engine = create_engine(

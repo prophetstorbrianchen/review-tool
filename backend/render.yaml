@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: review-tool-backend
+    env: python
+    region: oregon  # 或其他免费区域：oregon, frankfurt, singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    # 重要：Render 免费方案的持久化存储配置
+    disk:
+      name: review-tool-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1  # 免费方案最多 1GB
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:////opt/render/project/src/data/review_tool.db
+      - key: CORS_ORIGINS
+        value: '["https://your-frontend-url.vercel.app"]'
+      - key: PYTHON_VERSION
+        value: 3.9.18
