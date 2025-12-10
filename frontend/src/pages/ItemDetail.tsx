@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { api } from '../services/api';
 import type { LearningItem, ReviewHistory } from '../types';
@@ -7,7 +7,6 @@ import './ItemDetail.css';
 
 export function ItemDetail() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [item, setItem] = useState<LearningItem | null>(null);
   const [history, setHistory] = useState<ReviewHistory[]>([]);
   const [loading, setLoading] = useState(true);

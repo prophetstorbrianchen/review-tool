@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { api } from '../services/api';
-import type { LearningItem } from '../types';
 import './EditItem.css';
 
 export function EditItem() {
