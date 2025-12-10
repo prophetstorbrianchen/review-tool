@@ -1,6 +1,12 @@
-# 🎓 Spaced Repetition Review Tool
+# 🧠 Spaced Repetition Review Tool
 
 A beautiful, intelligent learning system that helps you remember what you've learned using scientifically-proven spaced repetition techniques.
+
+![Tech Stack](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![Tech Stack](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+![Tech Stack](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)
+![Tech Stack](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
+![Deploy](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)
 
 ## ✨ Features
 
@@ -86,7 +92,7 @@ The frontend features a **"Refined Study Space"** aesthetic:
 
 ## 🏗️ Architecture
 
-### Backend (FastAPI + SQLite)
+### Backend (FastAPI + PostgreSQL/SQLite)
 
 ```
 backend/
@@ -164,6 +170,57 @@ You can test the API using:
 - Interactive docs at http://localhost:8000/docs
 - curl commands
 - Postman or similar tools
+
+## 🌐 Deployment
+
+### Quick Deploy to Vercel (Recommended - Free!)
+
+Deploy the entire full-stack app to Vercel in 3 steps:
+
+```bash
+# 1. Create free PostgreSQL database (Neon)
+Visit neon.tech → Get DATABASE_URL
+
+# 2. Initialize database tables
+cd backend
+pip install -r requirements.txt
+export DATABASE_URL=postgresql://...
+python -c "from app.database import init_db; init_db()"
+
+# 3. Deploy to Vercel
+cd ..
+vercel --prod
+```
+
+**📖 Deployment Guides:**
+- **[VERCEL_QUICK_START.md](./VERCEL_QUICK_START.md)** - 3-step Vercel deployment
+- **[VERCEL_FULL_STACK.md](./VERCEL_FULL_STACK.md)** - Detailed Vercel guide
+- **[RENDER_QUICK_START.md](./RENDER_QUICK_START.md)** - Render + Vercel deployment
+- **[POSTGRESQL_MIGRATION.md](./POSTGRESQL_MIGRATION.md)** - PostgreSQL setup
+
+### Database Options
+
+**Local Development:**
+- **SQLite** - Zero config, works out of the box ✅
+
+**Production (Choose one):**
+- **Neon** - Free PostgreSQL, 3GB storage (recommended)
+- **Supabase** - Free 500MB with admin UI
+- **Vercel Postgres** - Integrated with Vercel
+
+## 💾 Database Support
+
+This app supports both **SQLite** (local dev) and **PostgreSQL** (production):
+
+```env
+# Local development
+DATABASE_URL=sqlite:///./data/review_tool.db
+
+# Production (Neon example)
+DATABASE_URL=postgresql://user:pass@host/db?sslmode=require
+```
+
+No code changes needed - it auto-detects the database type!
 
 ## 📝 Future Enhancements
 

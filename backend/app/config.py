@@ -15,7 +15,9 @@ class Settings(BaseSettings):
     DEBUG: bool = False
 
     # Database
-    # 支持 Render 持久化存储：如果在 Render 上会使用持久化磁盘路径
+    # Default to SQLite for local development
+    # For production, use PostgreSQL (e.g., from Neon, Supabase, or Vercel Postgres)
+    # Example PostgreSQL: postgresql://user:password@host:5432/dbname
     DATABASE_URL: str = "sqlite:///./data/review_tool.db"
 
     # CORS

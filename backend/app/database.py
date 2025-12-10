@@ -9,16 +9,26 @@ import os
 
 settings = get_settings()
 
-# Ensure data directory exists
-# 支持 Render 的持久化磁盘路径
-data_dir = os.getenv("DATA_DIR", "data")
-os.makedirs(data_dir, exist_ok=True)
+# Ensure data directory exists (only needed for SQLite in local dev)
+if settings.DATABASE_URL.startswith("sqlite"):
+    data_dir = os.getenv("DATA_DIR", "data")
+    os.makedirs(data_dir, exist_ok=True)
 
-# Create SQLite engine
-engine = create_engine(
-    settings.DATABASE_URL,
-    connect_args={"check_same_thread": False}  # Needed for SQLite
-)
+# Create database engine
+# PostgreSQL doesn't need connect_args, SQLite needs check_same_thread=False
+if settings.DATABASE_URL.startswith("sqlite"):
+    engine = create_engine(
+        settings.DATABASE_URL,
+        connect_args={"check_same_thread": False}
+    )
+else:
+    # PostgreSQL or other databases
+    engine = create_engine(
+        settings.DATABASE_URL,
+        pool_pre_ping=True,  # Verify connections before using
+        pool_size=5,
+        max_overflow=10
+    )
 
 # Create session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
