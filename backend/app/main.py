@@ -73,11 +73,12 @@ app.include_router(learning_items.router, prefix="/api/v1")
 app.include_router(reviews.router, prefix="/api/v1")
 
 
-# Startup event
-@app.on_event("startup")
-def on_startup():
-    """Initialize database on startup."""
-    init_db()
+# Startup event - only for local development
+# In serverless (Vercel), database should already be initialized
+# @app.on_event("startup")
+# def on_startup():
+#     """Initialize database on startup."""
+#     init_db()
 
 
 # Root endpoint
