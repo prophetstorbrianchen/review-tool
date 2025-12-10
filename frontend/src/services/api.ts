@@ -1,7 +1,8 @@
 import type { LearningItem, DueItemsResponse, ReviewStats, CreateLearningItemData, ReviewHistory } from '../types';
 
-// 使用环境变量，默认为本地开发地址
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+// 使用环境变量，生产环境使用相对路径
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.MODE === 'production' ? '/api/v1' : 'http://localhost:8000/api/v1');
 
 async function handleResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {

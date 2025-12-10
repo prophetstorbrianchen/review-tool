@@ -2,9 +2,15 @@ import sys
 import os
 
 # Add backend to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'backend'))
+backend_path = os.path.join(os.path.dirname(__file__), '..', 'backend')
+sys.path.insert(0, backend_path)
 
+# Import FastAPI app
 from app.main import app
+from mangum import Mangum
 
-# Export the FastAPI app for Vercel
-handler = app
+# Configure root path for Vercel
+app.root_path = "/api"
+
+# Create handler for Vercel serverless
+handler = Mangum(app, lifespan="off")
