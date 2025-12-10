@@ -1,8 +1,8 @@
 import type { LearningItem, DueItemsResponse, ReviewStats, CreateLearningItemData, ReviewHistory } from '../types';
 
-// 使用环境变量，生产环境使用相对路径
+// 使用环境变量，生产环境使用 Railway 后端
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||
-  (import.meta.env.MODE === 'production' ? '/api/v1' : 'http://localhost:8000/api/v1');
+  (import.meta.env.MODE === 'production' ? 'https://review-tool-production.up.railway.app/api/v1' : 'http://localhost:8000/api/v1');
 
 async function handleResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
